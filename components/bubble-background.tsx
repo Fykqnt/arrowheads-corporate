@@ -21,9 +21,9 @@ const useBubbleSize = () => {
     const handleResize = () => {
       if (typeof window !== "undefined") {
         if (window.innerWidth < 640) {
-          setSize(36) // Smaller on mobile
+          setSize(20) // Smaller on mobile
         } else if (window.innerWidth < 1024) {
-          setSize(48) // Medium on tablets
+          setSize(40) // Medium on tablets
         } else {
           setSize(60.5) // Full size on desktop
         }

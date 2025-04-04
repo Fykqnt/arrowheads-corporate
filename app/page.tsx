@@ -20,8 +20,8 @@ export default function Home() {
           <Navigation />
         </div>
         
-        {/* Hero positioned at the bottom */}
-        <div className="relative flex-grow w-full">
+        {/* Hero positioned at the bottom for all screen sizes */}
+        <div className="relative flex-grow w-full flex items-end">
           <Hero />
         </div>
       </div>
