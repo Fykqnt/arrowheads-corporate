@@ -13,47 +13,87 @@ interface BubbleProps {
   shouldOpen: boolean
 }
 
-// Adjust bubble size based on screen size
-const useBubbleSize = () => {
-  const [size, setSize] = useState(60.5)
+// Dynamic calculation of bubble parameters based on viewport
+const useResponsiveBubbleLayout = () => {
+  const [layout, setLayout] = useState({
+    bubbleSize: 60.5,
+    columns: 20,
+    rows: 12
+  })
 
   useEffect(() => {
-    const handleResize = () => {
-      if (typeof window !== "undefined") {
-        if (window.innerWidth < 640) {
-          setSize(20) // Smaller on mobile
-        } else if (window.innerWidth < 1024) {
-          setSize(40) // Medium on tablets
-        } else {
-          setSize(60.5) // Full size on desktop
-        }
+    const calculateLayout = () => {
+      if (typeof window === "undefined") return
+      
+      // Get viewport dimensions
+      const viewportWidth = window.innerWidth
+      const viewportHeight = window.innerHeight
+      
+      // Calculate optimal bubble size and count
+      let columns, rows, bubbleSize
+      
+      // Base calculations on viewport width
+      if (viewportWidth < 480) {
+        // Mobile phone
+        columns = 8
+      } else if (viewportWidth < 768) {
+        // Larger mobile/small tablet
+        columns = 12
+      } else if (viewportWidth < 1024) {
+        // Tablet
+        columns = 16
+      } else {
+        // Desktop
+        columns = 20
       }
+      
+      // Calculate rows based on aspect ratio - increase density by using 0.9 multiplier
+      const aspectRatio = viewportHeight / viewportWidth
+      rows = Math.max(10, Math.floor(columns * aspectRatio * 0.9))
+      
+      // Use more of the screen height (95% instead of 84%)
+      const horizontalSpacing = 90 / (columns - 1)
+      const verticalSpacing = 95 / (rows - 1)
+      
+      // Convert percentage spacing to pixels
+      const horizontalPixels = (horizontalSpacing / 100) * viewportWidth
+      const verticalPixels = (verticalSpacing / 100) * viewportHeight
+      
+      // Calculate bubble size to ensure touching
+      bubbleSize = Math.min(horizontalPixels, verticalPixels) * 1.02
+      
+      setLayout({ bubbleSize, columns, rows })
     }
 
-    // Set initial size
-    handleResize()
-
-    // Add event listener
+    // Calculate initial layout
+    calculateLayout()
+    
+    // Recalculate on resize with debounce for performance
+    let resizeTimer: NodeJS.Timeout
+    const handleResize = () => {
+      clearTimeout(resizeTimer)
+      resizeTimer = setTimeout(calculateLayout, 100)
+    }
+    
     window.addEventListener("resize", handleResize)
-
-    // Clean up
-    return () => window.removeEventListener("resize", handleResize)
+    
+    return () => {
+      clearTimeout(resizeTimer)
+      window.removeEventListener("resize", handleResize)
+    }
   }, [])
 
-  return size
+  return layout
 }
-
-const COLUMNS = 20 // Number of vertical lines
-const ROWS = 12 // Number of bubbles per line
 
 export default function BubbleBackground() {
   const [mousePosition, setMousePosition] = useState<{ x: number; y: number } | null>(null)
   const [initialAnimationComplete, setInitialAnimationComplete] = useState(false)
   const bubblesRef = useRef<BubbleProps[]>([])
   const [bubbleStates, setBubbleStates] = useState<boolean[]>([])
-  const BUBBLE_SIZE = useBubbleSize()
+  const { bubbleSize: BUBBLE_SIZE, columns: COLUMNS, rows: ROWS } = useResponsiveBubbleLayout()
 
-  // Generate bubbles only once on component mount
+  // Generate bubbles when layout changes
   useEffect(() => {
     const bubbles: BubbleProps[] = []
 
@@ -62,10 +102,10 @@ export default function BubbleBackground() {
       const x = 5 + col * (90 / (COLUMNS - 1)) // Evenly space columns across 90% of the width
 
       for (let row = 0; row < ROWS; row++) {
-        // Evenly space rows
-        const y = 8 + row * (84 / (ROWS - 1)) // Evenly space rows across 84% of the height
+        // Evenly space rows - use 95% of the height for denser vertical spacing
+        const y = 5 + row * (95 / (ROWS - 1)) 
 
-        // Stagger the delays for a more interesting animation but 3x faster
+        // Stagger the delays for a more interesting animation
         const delay = (500 + (col + row) * 100) / 3
 
         // Randomly determine if this bubble should open (about 70%)
@@ -80,13 +120,13 @@ export default function BubbleBackground() {
     // Initialize bubble states based on shouldOpen
     setBubbleStates(bubbles.map((bubble) => bubble.shouldOpen))
 
-    // Enable interactivity after a shorter time (also 3x faster)
+    // Enable interactivity after initial animation
     const timer = setTimeout(() => {
       setInitialAnimationComplete(true)
     }, 2000 / 3)
 
     return () => clearTimeout(timer)
-  }, [])
+  }, [COLUMNS, ROWS]) // Regenerate when layout changes
 
   // Handle mouse move to track cursor position
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -109,12 +149,16 @@ export default function BubbleBackground() {
           const dx = Math.abs(bubble.x - x)
           const dy = Math.abs(bubble.y - y)
 
-          // Check if bubble is within the 5x5 grid around cursor
-          // Convert percentage distances to grid cell distances
-          const colDistance = dx / (90 / (COLUMNS - 1))
-          const rowDistance = dy / (84 / (ROWS - 1))
+          // Dynamic proximity based on column/row spacing
+          const colSpacing = 90 / (COLUMNS - 1)
+          const rowSpacing = 95 / (ROWS - 1)
+          
+          // Scale proximity based on screen size
+          const proximityFactor = window.innerWidth < 768 ? 1.2 : 2
+          const colDistance = dx / colSpacing 
+          const rowDistance = dy / rowSpacing
 
-          if (colDistance <= 2 && rowDistance <= 2) {
+          if (colDistance <= proximityFactor && rowDistance <= proximityFactor) {
             // Toggle the bubble state
             newStates[index] = !bubble.shouldOpen
           } else {
@@ -206,7 +250,7 @@ const BubbleItem = ({ x, y, delay, isOpen, size }: BubbleItemProps) => {
               }
             : {}
         }
-        transition={{ duration: 0.13 }}
+        transition={{ duration: 0.06 }}
         aria-label="Interactive bubble"
       />
     </div>
