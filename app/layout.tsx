@@ -7,8 +7,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Arrowheads Inc. - AI Innovation",
-  description: "Cutting-edge AI solutions for real-world challenges",
+  title: "Arrowheads Inc.",
+  description: "Build a system that reduces the entropy",
     generator: 'v0.dev'
 }
 
@@ -29,5 +29,3 @@ export default function RootLayout({
 }
 
 
-
-import './globals.css'
