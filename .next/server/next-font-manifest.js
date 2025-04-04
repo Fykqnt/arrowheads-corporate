@@ -1,1 +1,1 @@
-self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{\"/Users/fuyukimatsubara/development/arrowheads-corporate/app/layout\":[\"static/media/a34f9d1faa5f3315-s.p.woff2\"]},\"appUsingSizeAdjust\":true,\"pagesUsingSizeAdjust\":false}"
+self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{\"/Users/fuyukimatsubara/development/arrowheads-corporate/app/layout\":[\"static/media/a34f9d1faa5f3315-s.p.woff2\",\"static/media/c4250770ab8708b6-s.p.woff2\"]},\"appUsingSizeAdjust\":true,\"pagesUsingSizeAdjust\":false}"

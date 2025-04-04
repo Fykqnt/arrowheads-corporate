@@ -13,6 +13,9 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        notosans: ["var(--font-notosans)"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

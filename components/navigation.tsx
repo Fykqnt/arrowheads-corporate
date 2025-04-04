@@ -38,7 +38,7 @@ export default function Navigation() {
   const container = {
     hidden: { opacity: 0 },
     show: {
-      opacity: 1,
+      opacity: 0.8,
       transition: {
         staggerChildren: 0.1,
         delayChildren: 1.5 / 3, // Start after hero animation begins (3x faster)
@@ -52,7 +52,12 @@ export default function Navigation() {
   }
 
   return (
-    <motion.nav className="space-y-6 pointer-events-none" variants={container} initial="hidden" animate="show">
+    <motion.nav 
+      className="space-y-6 pointer-events-none h-full pl-6 pr-8 py-8 backdrop-blur-md bg-black/30 rounded-l-lg" 
+      variants={container} 
+      initial="hidden" 
+      animate="show"
+    >
       {/* Main navigation */}
       <div className="space-y-4">
         <motion.div variants={item} className="pointer-events-auto">

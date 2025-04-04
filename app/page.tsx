@@ -14,14 +14,15 @@ export default function Home() {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 container mx-auto px-4 py-8 pointer-events-none flex-grow">
-        <div className="flex flex-col md:flex-row justify-between items-start">
-          <div className="w-full md:w-2/3 pr-0 md:pr-8 pointer-events-none">
-            <Hero />
-          </div>
-          <div className="w-full md:w-1/3 mt-8 md:mt-0 pointer-events-none">
-            <Navigation />
-          </div>
+      <div className="relative z-10 container mx-auto px-4 py-8 pointer-events-none flex-grow flex flex-col">
+        {/* Navigation on the right */}
+        <div className="fixed top-0 right-0 h-full w-1/3 max-w-xs z-20 pointer-events-none pr-0">
+          <Navigation />
+        </div>
+        
+        {/* Hero positioned at the bottom */}
+        <div className="relative flex-grow w-full">
+          <Hero />
         </div>
       </div>
 

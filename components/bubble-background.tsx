@@ -15,7 +15,7 @@ interface BubbleProps {
 
 // Adjust bubble size based on screen size
 const useBubbleSize = () => {
-  const [size, setSize] = useState(44)
+  const [size, setSize] = useState(64)
 
   useEffect(() => {
     const handleResize = () => {
