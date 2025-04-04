@@ -15,17 +15,17 @@ interface BubbleProps {
 
 // Adjust bubble size based on screen size
 const useBubbleSize = () => {
-  const [size, setSize] = useState(64)
+  const [size, setSize] = useState(60.5)
 
   useEffect(() => {
     const handleResize = () => {
       if (typeof window !== "undefined") {
         if (window.innerWidth < 640) {
-          setSize(28) // Smaller on mobile
+          setSize(36) // Smaller on mobile
         } else if (window.innerWidth < 1024) {
-          setSize(36) // Medium on tablets
+          setSize(48) // Medium on tablets
         } else {
-          setSize(44) // Full size on desktop
+          setSize(60.5) // Full size on desktop
         }
       }
     }
