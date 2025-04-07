@@ -60,7 +60,7 @@ const useResponsiveBubbleLayout = () => {
       const verticalPixels = (verticalSpacing / 100) * viewportHeight
       
       // Calculate bubble size to ensure touching
-      bubbleSize = Math.min(horizontalPixels, verticalPixels) * 1.02
+      bubbleSize = Math.min(horizontalPixels, verticalPixels) * 1.02 * 0.8
       
       setLayout({ bubbleSize, columns, rows })
     }
@@ -108,8 +108,8 @@ export default function BubbleBackground() {
         // Stagger the delays for a more interesting animation
         const delay = (500 + (col + row) * 100) / 3
 
-        // Randomly determine if this bubble should open (about 70%)
-        const shouldOpen = Math.random() < 0.7
+        // Randomly determine if this bubble should open (about 51%)
+        const shouldOpen = Math.random() < 0.51
 
         bubbles.push({ x, y, delay, colIndex: col, rowIndex: row, shouldOpen })
       }

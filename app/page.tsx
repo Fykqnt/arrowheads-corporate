@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <main className="relative min-h-screen bg-[#121212] text-white overflow-hidden flex flex-col">
       {/* Background with bubbles */}
-      <div className="absolute inset-0 z-0 pointer-events-auto">
+      <div className="absolute inset-[40px] z-0 pointer-events-auto">
         <BubbleBackground />
       </div>
 

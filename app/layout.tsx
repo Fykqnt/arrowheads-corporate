@@ -12,8 +12,14 @@ const notoSans = Noto_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "Arrowheads Inc. - AI Innovation",
-  description: "Cutting-edge AI solutions for real-world challenges",
+  title: "Arrowheads Inc.",
+  description: "AI solutions for real-world challenges",
+  icons: {
+    icon: [
+      { url: '/icon.ico', sizes: 'any' },
+
+    ],
+  },
   generator: 'v0.dev'
 }
 
