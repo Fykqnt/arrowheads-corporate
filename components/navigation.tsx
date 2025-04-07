@@ -23,7 +23,7 @@ const menuItems = [
 ]
 
 const staticLinks = [
-  { name: "News", url: "/news" },
+  { name: "Company Info", url: "/info" },
   { name: "Contact", url: "/contact" },
 ]
 

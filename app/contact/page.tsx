@@ -98,16 +98,16 @@ export default function Contact() {
         
         {/* Contact Form */}
         <div className="relative flex-grow w-full max-w-2xl mx-auto my-8 flex items-center">
-          <div className="w-full backdrop-blur-sm bg-white/10 rounded-lg p-8 pointer-events-auto">
-            <h1 className="text-3xl font-bold mb-6">Contact Us</h1>
+          <div className="w-full backdrop-blur-md bg-black/30 rounded-lg p-8 pointer-events-auto">
+            <h1 className="text-3xl font-bold mb-6 text-blue-400">Contact Us</h1>
             
             {isSubmitted ? (
-              <div className="bg-green-800/50 backdrop-blur-sm border border-green-500 p-6 rounded-lg text-center">
+              <div className="backdrop-blur-md bg-green-950/50 border border-green-500/50 p-6 rounded-lg text-center">
                 <h2 className="text-2xl font-semibold mb-2">Thank You!</h2>
                 <p className="mb-4">Your contact form has been sent successfully.</p>
                 <button 
                   onClick={() => setIsSubmitted(false)}
-                  className="bg-white/20 hover:bg-white/30 transition duration-300 px-4 py-2 rounded-md"
+                  className="bg-white/10 hover:bg-white/20 transition duration-300 px-4 py-2 rounded-md"
                 >
                   Send another message
                 </button>
@@ -115,61 +115,61 @@ export default function Contact() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-1">Name</label>
+                  <label htmlFor="name" className="block text-xl font-semibold text-gray-300 mb-1">Name</label>
                   <input
                     type="text"
                     id="name"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className={`w-full bg-white/5 border ${errors.name ? 'border-red-500' : 'border-gray-600'} rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                    className={`w-full bg-black/20 backdrop-blur-sm border ${errors.name ? 'border-red-500' : 'border-gray-600'} rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-200`}
                   />
-                  {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name}</p>}
+                  {errors.name && <p className="mt-1 text-sm text-red-400">{errors.name}</p>}
                 </div>
                 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-1">Email Address</label>
+                  <label htmlFor="email" className="block text-xl font-semibold text-gray-300 mb-1">Email Address</label>
                   <input
                     type="email"
                     id="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`w-full bg-white/5 border ${errors.email ? 'border-red-500' : 'border-gray-600'} rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                    className={`w-full bg-black/20 backdrop-blur-sm border ${errors.email ? 'border-red-500' : 'border-gray-600'} rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-200`}
                   />
-                  {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
+                  {errors.email && <p className="mt-1 text-sm text-red-400">{errors.email}</p>}
                 </div>
                 
                 <div>
-                  <label htmlFor="faculty" className="block text-sm font-medium mb-1">Faculty</label>
+                  <label htmlFor="faculty" className="block text-xl font-semibold text-gray-300 mb-1">Faculty</label>
                   <input
                     type="text"
                     id="faculty"
                     name="faculty"
                     value={formData.faculty}
                     onChange={handleChange}
-                    className={`w-full bg-white/5 border ${errors.faculty ? 'border-red-500' : 'border-gray-600'} rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                    className={`w-full bg-black/20 backdrop-blur-sm border ${errors.faculty ? 'border-red-500' : 'border-gray-600'} rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-200`}
                   />
-                  {errors.faculty && <p className="mt-1 text-sm text-red-500">{errors.faculty}</p>}
+                  {errors.faculty && <p className="mt-1 text-sm text-red-400">{errors.faculty}</p>}
                 </div>
                 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-1">Message</label>
+                  <label htmlFor="message" className="block text-xl font-semibold text-gray-300 mb-1">Message</label>
                   <textarea
                     id="message"
                     name="message"
                     rows={5}
                     value={formData.message}
                     onChange={handleChange}
-                    className={`w-full bg-white/5 border ${errors.message ? 'border-red-500' : 'border-gray-600'} rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                    className={`w-full bg-black/20 backdrop-blur-sm border ${errors.message ? 'border-red-500' : 'border-gray-600'} rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-200`}
                   />
-                  {errors.message && <p className="mt-1 text-sm text-red-500">{errors.message}</p>}
+                  {errors.message && <p className="mt-1 text-sm text-red-400">{errors.message}</p>}
                 </div>
                 
                 <div className="pt-2">
                   <button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-blue-600 to-blue-600 hover:from-blue-700 hover:to-blue-700 text-white py-3 px-6 rounded-md font-medium transition duration-300"
+                    className="w-full bg-blue-500/80 hover:bg-blue-600/80 text-white py-3 px-6 rounded-md font-medium transition duration-300 backdrop-blur-sm"
                   >
                     Submit
                   </button>
