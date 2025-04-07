@@ -82,7 +82,7 @@ export default function Contact() {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 container mx-auto px-4 py-8 flex-grow flex flex-col">
+      <div className="relative z-10 container mx-auto px-4 py-8 pointer-events-none flex-grow flex flex-col">
         {/* Back button */}
         <div className="mb-8">
           <Link href="/" className="inline-flex items-center text-gray-300 hover:text-white transition-colors pointer-events-auto">
