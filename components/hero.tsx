@@ -18,7 +18,6 @@ export default function Hero() {
       <p className="text-lg sm:text-xl md:text-2xl text-gray-300 leading-relaxed font-notosans">
         We build systems that reduce the entropy by implementing Maxwell's Demon in the real world.
       </p>
-      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mt-12 md:mt-16 font-notosans">Let's reduce the entropy autonomously.</h2>
     </motion.div>
   )
 }

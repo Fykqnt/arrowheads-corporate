@@ -6,22 +6,18 @@ import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 
 const menuItems = [
-  {
-    title: "Who We Are",
-    items: [{ name: "Our Team", url: "/team" }],
-  },
+
   {
     title: "What We Do",
     items: [
-      { name: "Research", url: "/research" },
+      { name: "Research", url: "/applications" },
       { name: "Industry Applications", url: "/applications" },
     ],
   },
   {
     title: "How To Join",
     items: [
-      { name: "Career Opportunities", url: "/careers" },
-      { name: "FAQ", url: "/faq" },
+      { name: "Career Opportunities", url: "/contact" }
     ],
   },
 ]
