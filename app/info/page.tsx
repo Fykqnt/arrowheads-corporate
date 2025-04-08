@@ -1,7 +1,5 @@
 "use client"
 
-import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
 import Navigation from "@/components/navigation"
 import BubbleBackground from "@/components/bubble-background"
 import Footer from "@/components/footer"
@@ -16,14 +14,6 @@ export default function Info() {
 
       {/* Main content */}
       <div className="relative z-10 container mx-auto px-4 py-8 pointer-events-none flex-grow flex flex-col">
-        {/* Back button */}
-        <div className="mb-8">
-          <Link href="/" className="inline-flex items-center text-gray-300 hover:text-white transition-colors pointer-events-auto">
-            <ArrowLeft className="mr-2 h-5 w-5" />
-            <span>Back to Home</span>
-          </Link>
-        </div>
-
         {/* Navigation on the right */}
         <div className="fixed top-0 right-0 h-full w-1/3 max-w-xs z-20 pointer-events-none pr-0">
           <Navigation />
