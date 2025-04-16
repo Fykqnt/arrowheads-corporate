@@ -2,16 +2,7 @@ import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 export async function POST(request: Request) {
-  // Debug log - remove in production!
-  console.log("Environment variables loaded:", {
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    secure: process.env.EMAIL_SECURE,
-    user: process.env.EMAIL_USER ? "***Set***" : "MISSING",
-    pass: process.env.EMAIL_PASSWORD ? "***Set***" : "MISSING",
-    from: process.env.EMAIL_FROM,
-    to: process.env.EMAIL_TO || 'test.example.com',
-  });
+
 
   try {
     const body = await request.json();
