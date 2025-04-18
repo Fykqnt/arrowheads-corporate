@@ -19,7 +19,7 @@ exports.modules = {
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   POST: () => (/* binding */ POST)\n/* harmony export */ });\n/* harmony import */ var next_server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! next/server */ \"(rsc)/./node_modules/next/dist/api/server.js\");\n/* harmony import */ var nodemailer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! nodemailer */ \"(rsc)/./node_modules/nodemailer/lib/nodemailer.js\");\n\n\nasync function POST(request) {\n    // Debug log - remove in production!\n    console.log(\"Environment variables loaded:\", {\n        host: process.env.EMAIL_HOST,\n        port: process.env.EMAIL_PORT,\n        secure: process.env.EMAIL_SECURE,\n        user: process.env.EMAIL_USER ? \"***Set***\" : \"MISSING\",\n        pass: process.env.EMAIL_PASSWORD ? \"***Set***\" : \"MISSING\",\n        from: process.env.EMAIL_FROM,\n        to: process.env.EMAIL_TO || 'test.example.com'\n    });\n    try {\n        const body = await request.json();\n        const { name, email, faculty, message } = body;\n        // Configure email transporter\n        const transporter = nodemailer__WEBPACK_IMPORTED_MODULE_1__.createTransport({\n            host: process.env.EMAIL_HOST,\n            port: Number(process.env.EMAIL_PORT),\n            secure: false,\n            auth: {\n                user: process.env.EMAIL_USER,\n                pass: process.env.EMAIL_PASSWORD\n            }\n        });\n        // Email content\n        const mailOptions = {\n            from: process.env.EMAIL_FROM,\n            to: process.env.EMAIL_TO,\n            subject: `New Contact Form Submission from ${name}`,\n            text: `Name: ${name}\\n` + `Email: ${email}\\n` + `Faculty: ${faculty}\\n\\n` + `Message:\\n${message}`,\n            html: `\n        <h2>New Contact Form Submission</h2>\n        <p><strong>Name:</strong> ${name}</p>\n        <p><strong>Email:</strong> ${email}</p>\n        <p><strong>Faculty:</strong> ${faculty}</p>\n        <p><strong>Message:</strong></p>\n        <p>${message.replace(/\\n/g, '<br>')}</p>\n      `\n        };\n        // Send the email\n        await transporter.sendMail(mailOptions);\n        return next_server__WEBPACK_IMPORTED_MODULE_0__.NextResponse.json({\n            message: 'Email sent successfully'\n        }, {\n            status: 200\n        });\n    } catch (error) {\n        console.error('Error sending email:', error);\n        return next_server__WEBPACK_IMPORTED_MODULE_0__.NextResponse.json({\n            error: 'Failed to send email'\n        }, {\n            status: 500\n        });\n    }\n}\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHJzYykvLi9hcHAvYXBpL2NvbnRhY3Qvcm91dGUudHMiLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQTJDO0FBQ1A7QUFFN0IsZUFBZUUsS0FBS0MsT0FBZ0I7SUFDekMsb0NBQW9DO0lBQ3BDQyxRQUFRQyxHQUFHLENBQUMsaUNBQWlDO1FBQzNDQyxNQUFNQyxRQUFRQyxHQUFHLENBQUNDLFVBQVU7UUFDNUJDLE1BQU1ILFFBQVFDLEdBQUcsQ0FBQ0csVUFBVTtRQUM1QkMsUUFBUUwsUUFBUUMsR0FBRyxDQUFDSyxZQUFZO1FBQ2hDQyxNQUFNUCxRQUFRQyxHQUFHLENBQUNPLFVBQVUsR0FBRyxjQUFjO1FBQzdDQyxNQUFNVCxRQUFRQyxHQUFHLENBQUNTLGNBQWMsR0FBRyxjQUFjO1FBQ2pEQyxNQUFNWCxRQUFRQyxHQUFHLENBQUNXLFVBQVU7UUFDNUJDLElBQUliLFFBQVFDLEdBQUcsQ0FBQ2EsUUFBUSxJQUFJO0lBQzlCO0lBRUEsSUFBSTtRQUNGLE1BQU1DLE9BQU8sTUFBTW5CLFFBQVFvQixJQUFJO1FBQy9CLE1BQU0sRUFBRUMsSUFBSSxFQUFFQyxLQUFLLEVBQUVDLE9BQU8sRUFBRUMsT0FBTyxFQUFFLEdBQUdMO1FBRTFDLDhCQUE4QjtRQUM5QixNQUFNTSxjQUFjM0IsdURBQTBCLENBQUM7WUFDN0NLLE1BQU1DLFFBQVFDLEdBQUcsQ0FBQ0MsVUFBVTtZQUM1QkMsTUFBTW9CLE9BQU92QixRQUFRQyxHQUFHLENBQUNHLFVBQVU7WUFDbkNDLFFBQVE7WUFDUm1CLE1BQU07Z0JBQ0pqQixNQUFNUCxRQUFRQyxHQUFHLENBQUNPLFVBQVU7Z0JBQzVCQyxNQUFNVCxRQUFRQyxHQUFHLENBQUNTLGNBQWM7WUFDbEM7UUFDRjtRQUVBLGdCQUFnQjtRQUNoQixNQUFNZSxjQUFjO1lBQ2xCZCxNQUFNWCxRQUFRQyxHQUFHLENBQUNXLFVBQVU7WUFDNUJDLElBQUliLFFBQVFDLEdBQUcsQ0FBQ2EsUUFBUTtZQUN4QlksU0FBUyxDQUFDLGlDQUFpQyxFQUFFVCxNQUFNO1lBQ25EVSxNQUNFLENBQUMsTUFBTSxFQUFFVixLQUFLLEVBQUUsQ0FBQyxHQUNqQixDQUFDLE9BQU8sRUFBRUMsTUFBTSxFQUFFLENBQUMsR0FDbkIsQ0FBQyxTQUFTLEVBQUVDLFFBQVEsSUFBSSxDQUFDLEdBQ3pCLENBQUMsVUFBVSxFQUFFQyxTQUFTO1lBQ3hCUSxNQUFNLENBQUM7O2tDQUVxQixFQUFFWCxLQUFLO21DQUNOLEVBQUVDLE1BQU07cUNBQ04sRUFBRUMsUUFBUTs7V0FFcEMsRUFBRUMsUUFBUVMsT0FBTyxDQUFDLE9BQU8sUUFBUTtNQUN0QyxDQUFDO1FBQ0g7UUFFQSxpQkFBaUI7UUFDakIsTUFBTVIsWUFBWVMsUUFBUSxDQUFDTDtRQUUzQixPQUFPaEMscURBQVlBLENBQUN1QixJQUFJLENBQ3RCO1lBQUVJLFNBQVM7UUFBMEIsR0FDckM7WUFBRVcsUUFBUTtRQUFJO0lBRWxCLEVBQUUsT0FBT0MsT0FBTztRQUNkbkMsUUFBUW1DLEtBQUssQ0FBQyx3QkFBd0JBO1FBQ3RDLE9BQU92QyxxREFBWUEsQ0FBQ3VCLElBQUksQ0FDdEI7WUFBRWdCLE9BQU87UUFBdUIsR0FDaEM7WUFBRUQsUUFBUTtRQUFJO0lBRWxCO0FBQ0YiLCJzb3VyY2VzIjpbIi9Vc2Vycy9mdXl1a2ltYXRzdWJhcmEvZGV2ZWxvcG1lbnQvYXJyb3doZWFkcy1jb3Jwb3JhdGUvYXBwL2FwaS9jb250YWN0L3JvdXRlLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IE5leHRSZXNwb25zZSB9IGZyb20gJ25leHQvc2VydmVyJztcbmltcG9ydCBub2RlbWFpbGVyIGZyb20gJ25vZGVtYWlsZXInO1xuXG5leHBvcnQgYXN5bmMgZnVuY3Rpb24gUE9TVChyZXF1ZXN0OiBSZXF1ZXN0KSB7XG4gIC8vIERlYnVnIGxvZyAtIHJlbW92ZSBpbiBwcm9kdWN0aW9uIVxuICBjb25zb2xlLmxvZyhcIkVudmlyb25tZW50IHZhcmlhYmxlcyBsb2FkZWQ6XCIsIHtcbiAgICBob3N0OiBwcm9jZXNzLmVudi5FTUFJTF9IT1NULFxuICAgIHBvcnQ6IHByb2Nlc3MuZW52LkVNQUlMX1BPUlQsXG4gICAgc2VjdXJlOiBwcm9jZXNzLmVudi5FTUFJTF9TRUNVUkUsXG4gICAgdXNlcjogcHJvY2Vzcy5lbnYuRU1BSUxfVVNFUiA/IFwiKioqU2V0KioqXCIgOiBcIk1JU1NJTkdcIixcbiAgICBwYXNzOiBwcm9jZXNzLmVudi5FTUFJTF9QQVNTV09SRCA/IFwiKioqU2V0KioqXCIgOiBcIk1JU1NJTkdcIixcbiAgICBmcm9tOiBwcm9jZXNzLmVudi5FTUFJTF9GUk9NLFxuICAgIHRvOiBwcm9jZXNzLmVudi5FTUFJTF9UTyB8fCAndGVzdC5leGFtcGxlLmNvbScsXG4gIH0pO1xuXG4gIHRyeSB7XG4gICAgY29uc3QgYm9keSA9IGF3YWl0IHJlcXVlc3QuanNvbigpO1xuICAgIGNvbnN0IHsgbmFtZSwgZW1haWwsIGZhY3VsdHksIG1lc3NhZ2UgfSA9IGJvZHk7XG5cbiAgICAvLyBDb25maWd1cmUgZW1haWwgdHJhbnNwb3J0ZXJcbiAgICBjb25zdCB0cmFuc3BvcnRlciA9IG5vZGVtYWlsZXIuY3JlYXRlVHJhbnNwb3J0KHtcbiAgICAgIGhvc3Q6IHByb2Nlc3MuZW52LkVNQUlMX0hPU1QsXG4gICAgICBwb3J0OiBOdW1iZXIocHJvY2Vzcy5lbnYuRU1BSUxfUE9SVCksXG4gICAgICBzZWN1cmU6IGZhbHNlLFxuICAgICAgYXV0aDoge1xuICAgICAgICB1c2VyOiBwcm9jZXNzLmVudi5FTUFJTF9VU0VSLFxuICAgICAgICBwYXNzOiBwcm9jZXNzLmVudi5FTUFJTF9QQVNTV09SRCxcbiAgICAgIH0sXG4gICAgfSk7XG5cbiAgICAvLyBFbWFpbCBjb250ZW50XG4gICAgY29uc3QgbWFpbE9wdGlvbnMgPSB7XG4gICAgICBmcm9tOiBwcm9jZXNzLmVudi5FTUFJTF9GUk9NLFxuICAgICAgdG86IHByb2Nlc3MuZW52LkVNQUlMX1RPLFxuICAgICAgc3ViamVjdDogYE5ldyBDb250YWN0IEZvcm0gU3VibWlzc2lvbiBmcm9tICR7bmFtZX1gLFxuICAgICAgdGV4dDogXG4gICAgICAgIGBOYW1lOiAke25hbWV9XFxuYCArXG4gICAgICAgIGBFbWFpbDogJHtlbWFpbH1cXG5gICtcbiAgICAgICAgYEZhY3VsdHk6ICR7ZmFjdWx0eX1cXG5cXG5gICtcbiAgICAgICAgYE1lc3NhZ2U6XFxuJHttZXNzYWdlfWAsXG4gICAgICBodG1sOiBgXG4gICAgICAgIDxoMj5OZXcgQ29udGFjdCBGb3JtIFN1Ym1pc3Npb248L2gyPlxuICAgICAgICA8cD48c3Ryb25nPk5hbWU6PC9zdHJvbmc+ICR7bmFtZX08L3A+XG4gICAgICAgIDxwPjxzdHJvbmc+RW1haWw6PC9zdHJvbmc+ICR7ZW1haWx9PC9wPlxuICAgICAgICA8cD48c3Ryb25nPkZhY3VsdHk6PC9zdHJvbmc+ICR7ZmFjdWx0eX08L3A+XG4gICAgICAgIDxwPjxzdHJvbmc+TWVzc2FnZTo8L3N0cm9uZz48L3A+XG4gICAgICAgIDxwPiR7bWVzc2FnZS5yZXBsYWNlKC9cXG4vZywgJzxicj4nKX08L3A+XG4gICAgICBgLFxuICAgIH07XG5cbiAgICAvLyBTZW5kIHRoZSBlbWFpbFxuICAgIGF3YWl0IHRyYW5zcG9ydGVyLnNlbmRNYWlsKG1haWxPcHRpb25zKTtcbiAgICBcbiAgICByZXR1cm4gTmV4dFJlc3BvbnNlLmpzb24oXG4gICAgICB7IG1lc3NhZ2U6ICdFbWFpbCBzZW50IHN1Y2Nlc3NmdWxseScgfSxcbiAgICAgIHsgc3RhdHVzOiAyMDAgfVxuICAgICk7XG4gIH0gY2F0Y2ggKGVycm9yKSB7XG4gICAgY29uc29sZS5lcnJvcignRXJyb3Igc2VuZGluZyBlbWFpbDonLCBlcnJvcik7XG4gICAgcmV0dXJuIE5leHRSZXNwb25zZS5qc29uKFxuICAgICAgeyBlcnJvcjogJ0ZhaWxlZCB0byBzZW5kIGVtYWlsJyB9LFxuICAgICAgeyBzdGF0dXM6IDUwMCB9XG4gICAgKTtcbiAgfVxufSAiXSwibmFtZXMiOlsiTmV4dFJlc3BvbnNlIiwibm9kZW1haWxlciIsIlBPU1QiLCJyZXF1ZXN0IiwiY29uc29sZSIsImxvZyIsImhvc3QiLCJwcm9jZXNzIiwiZW52IiwiRU1BSUxfSE9TVCIsInBvcnQiLCJFTUFJTF9QT1JUIiwic2VjdXJlIiwiRU1BSUxfU0VDVVJFIiwidXNlciIsIkVNQUlMX1VTRVIiLCJwYXNzIiwiRU1BSUxfUEFTU1dPUkQiLCJmcm9tIiwiRU1BSUxfRlJPTSIsInRvIiwiRU1BSUxfVE8iLCJib2R5IiwianNvbiIsIm5hbWUiLCJlbWFpbCIsImZhY3VsdHkiLCJtZXNzYWdlIiwidHJhbnNwb3J0ZXIiLCJjcmVhdGVUcmFuc3BvcnQiLCJOdW1iZXIiLCJhdXRoIiwibWFpbE9wdGlvbnMiLCJzdWJqZWN0IiwidGV4dCIsImh0bWwiLCJyZXBsYWNlIiwic2VuZE1haWwiLCJzdGF0dXMiLCJlcnJvciJdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///(rsc)/./app/api/contact/route.ts\n");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   POST: () => (/* binding */ POST)\n/* harmony export */ });\n/* harmony import */ var next_server__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! next/server */ \"(rsc)/./node_modules/next/dist/api/server.js\");\n/* harmony import */ var resend__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! resend */ \"(rsc)/./node_modules/resend/dist/index.mjs\");\n\n\nasync function POST(request) {\n    try {\n        const body = await request.json();\n        const { name, email, faculty, message } = body;\n        // Basic server-side validation\n        if (!name || !email || !faculty || !message) {\n            return next_server__WEBPACK_IMPORTED_MODULE_0__.NextResponse.json({\n                error: 'All fields are required'\n            }, {\n                status: 400\n            });\n        }\n        // Initialize Resend\n        const resend = new resend__WEBPACK_IMPORTED_MODULE_1__.Resend(process.env.RESEND_API_KEY);\n        // Send email using Resend\n        const { data, error } = await resend.emails.send({\n            from: 'お問い合わせ <info@arrowheads.co.jp>',\n            to: 'info@arrowheads.co.jp',\n            subject: `新規お問い合わせがありました`,\n            replyTo: email,\n            text: `Name: ${name}\\n` + `Email: ${email}\\n` + `Faculty: ${faculty}\\n\\n` + `Message:\\n${message}`,\n            html: `\n        <div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;\">\n          <h2 style=\"color: #4a5568; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;\">New Contact Form Submission</h2>\n          \n          <div style=\"margin: 20px 0;\">\n            <p><strong>Name:</strong> ${name}</p>\n            <p><strong>Email:</strong> <a href=\"mailto:${email}\">${email}</a></p>\n            <p><strong>Faculty:</strong> ${faculty}</p>\n          </div>\n          \n          <div style=\"background-color: #f7fafc; padding: 15px; border-radius: 5px; margin-top: 20px;\">\n            <h3 style=\"color: #4a5568; margin-top: 0;\">Message:</h3>\n            <p style=\"white-space: pre-wrap;\">${message.replace(/\\n/g, '<br>')}</p>\n          </div>\n          \n          <div style=\"margin-top: 30px; font-size: 12px; color: #718096; border-top: 1px solid #e2e8f0; padding-top: 10px;\">\n            <p>This is an automated email from your website contact form.</p>\n          </div>\n        </div>\n      `\n        });\n        if (error) {\n            console.error('Error sending email with Resend:', error);\n            return next_server__WEBPACK_IMPORTED_MODULE_0__.NextResponse.json({\n                error: 'Failed to send email'\n            }, {\n                status: 500\n            });\n        }\n        return next_server__WEBPACK_IMPORTED_MODULE_0__.NextResponse.json({\n            message: 'Email sent successfully',\n            id: data?.id\n        }, {\n            status: 200\n        });\n    } catch (error) {\n        console.error('Error sending email:', error);\n        return next_server__WEBPACK_IMPORTED_MODULE_0__.NextResponse.json({\n            error: 'Failed to send email'\n        }, {\n            status: 500\n        });\n    }\n}\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHJzYykvLi9hcHAvYXBpL2NvbnRhY3Qvcm91dGUudHMiLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQTJDO0FBQ1g7QUFFekIsZUFBZUUsS0FBS0MsT0FBZ0I7SUFDekMsSUFBSTtRQUNGLE1BQU1DLE9BQU8sTUFBTUQsUUFBUUUsSUFBSTtRQUMvQixNQUFNLEVBQUVDLElBQUksRUFBRUMsS0FBSyxFQUFFQyxPQUFPLEVBQUVDLE9BQU8sRUFBRSxHQUFHTDtRQUUxQywrQkFBK0I7UUFDL0IsSUFBSSxDQUFDRSxRQUFRLENBQUNDLFNBQVMsQ0FBQ0MsV0FBVyxDQUFDQyxTQUFTO1lBQzNDLE9BQU9ULHFEQUFZQSxDQUFDSyxJQUFJLENBQ3RCO2dCQUFFSyxPQUFPO1lBQTBCLEdBQ25DO2dCQUFFQyxRQUFRO1lBQUk7UUFFbEI7UUFFQSxvQkFBb0I7UUFDcEIsTUFBTUMsU0FBUyxJQUFJWCwwQ0FBTUEsQ0FBQ1ksUUFBUUMsR0FBRyxDQUFDQyxjQUFjO1FBRXBELDBCQUEwQjtRQUMxQixNQUFNLEVBQUVDLElBQUksRUFBRU4sS0FBSyxFQUFFLEdBQUcsTUFBTUUsT0FBT0ssTUFBTSxDQUFDQyxJQUFJLENBQUM7WUFDL0NDLE1BQU07WUFDTkMsSUFBSTtZQUNKQyxTQUFTLENBQUMsY0FBYyxDQUFDO1lBQ3pCQyxTQUFTZjtZQUNUZ0IsTUFDRSxDQUFDLE1BQU0sRUFBRWpCLEtBQUssRUFBRSxDQUFDLEdBQ2pCLENBQUMsT0FBTyxFQUFFQyxNQUFNLEVBQUUsQ0FBQyxHQUNuQixDQUFDLFNBQVMsRUFBRUMsUUFBUSxJQUFJLENBQUMsR0FDekIsQ0FBQyxVQUFVLEVBQUVDLFNBQVM7WUFDeEJlLE1BQU0sQ0FBQzs7Ozs7c0NBS3lCLEVBQUVsQixLQUFLO3VEQUNVLEVBQUVDLE1BQU0sRUFBRSxFQUFFQSxNQUFNO3lDQUNoQyxFQUFFQyxRQUFROzs7Ozs4Q0FLTCxFQUFFQyxRQUFRZ0IsT0FBTyxDQUFDLE9BQU8sUUFBUTs7Ozs7OztNQU96RSxDQUFDO1FBQ0g7UUFFQSxJQUFJZixPQUFPO1lBQ1RnQixRQUFRaEIsS0FBSyxDQUFDLG9DQUFvQ0E7WUFDbEQsT0FBT1YscURBQVlBLENBQUNLLElBQUksQ0FDdEI7Z0JBQUVLLE9BQU87WUFBdUIsR0FDaEM7Z0JBQUVDLFFBQVE7WUFBSTtRQUVsQjtRQUVBLE9BQU9YLHFEQUFZQSxDQUFDSyxJQUFJLENBQ3RCO1lBQUVJLFNBQVM7WUFBMkJrQixJQUFJWCxNQUFNVztRQUFHLEdBQ25EO1lBQUVoQixRQUFRO1FBQUk7SUFFbEIsRUFBRSxPQUFPRCxPQUFPO1FBQ2RnQixRQUFRaEIsS0FBSyxDQUFDLHdCQUF3QkE7UUFDdEMsT0FBT1YscURBQVlBLENBQUNLLElBQUksQ0FDdEI7WUFBRUssT0FBTztRQUF1QixHQUNoQztZQUFFQyxRQUFRO1FBQUk7SUFFbEI7QUFDRiIsInNvdXJjZXMiOlsiL1VzZXJzL2Z1eXVraW1hdHN1YmFyYS9kZXZlbG9wbWVudC9hcnJvd2hlYWRzLWNvcnBvcmF0ZS9hcHAvYXBpL2NvbnRhY3Qvcm91dGUudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgTmV4dFJlc3BvbnNlIH0gZnJvbSAnbmV4dC9zZXJ2ZXInO1xuaW1wb3J0IHsgUmVzZW5kIH0gZnJvbSAncmVzZW5kJztcblxuZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIFBPU1QocmVxdWVzdDogUmVxdWVzdCkge1xuICB0cnkge1xuICAgIGNvbnN0IGJvZHkgPSBhd2FpdCByZXF1ZXN0Lmpzb24oKTtcbiAgICBjb25zdCB7IG5hbWUsIGVtYWlsLCBmYWN1bHR5LCBtZXNzYWdlIH0gPSBib2R5O1xuXG4gICAgLy8gQmFzaWMgc2VydmVyLXNpZGUgdmFsaWRhdGlvblxuICAgIGlmICghbmFtZSB8fCAhZW1haWwgfHwgIWZhY3VsdHkgfHwgIW1lc3NhZ2UpIHtcbiAgICAgIHJldHVybiBOZXh0UmVzcG9uc2UuanNvbihcbiAgICAgICAgeyBlcnJvcjogJ0FsbCBmaWVsZHMgYXJlIHJlcXVpcmVkJyB9LFxuICAgICAgICB7IHN0YXR1czogNDAwIH1cbiAgICAgICk7XG4gICAgfVxuXG4gICAgLy8gSW5pdGlhbGl6ZSBSZXNlbmRcbiAgICBjb25zdCByZXNlbmQgPSBuZXcgUmVzZW5kKHByb2Nlc3MuZW52LlJFU0VORF9BUElfS0VZKTtcbiAgICBcbiAgICAvLyBTZW5kIGVtYWlsIHVzaW5nIFJlc2VuZFxuICAgIGNvbnN0IHsgZGF0YSwgZXJyb3IgfSA9IGF3YWl0IHJlc2VuZC5lbWFpbHMuc2VuZCh7XG4gICAgICBmcm9tOiAn44GK5ZWP44GE5ZCI44KP44GbIDxpbmZvQGFycm93aGVhZHMuY28uanA+JywgLy8gVXNpbmcgdmVyaWZpZWQgZG9tYWluIGFzIHNlbmRlclxuICAgICAgdG86ICdpbmZvQGFycm93aGVhZHMuY28uanAnLCAvLyBTZW5kaW5nIHRvIHNhbWUgYWRkcmVzc1xuICAgICAgc3ViamVjdDogYOaWsOimj+OBiuWVj+OBhOWQiOOCj+OBm+OBjOOBguOCiuOBvuOBl+OBn2AsXG4gICAgICByZXBseVRvOiBlbWFpbCwgLy8gTWFrZXMgcmVwbHlpbmcgZ28gdG8gdGhlIGZvcm0gc3VibWl0dGVyXG4gICAgICB0ZXh0OiBcbiAgICAgICAgYE5hbWU6ICR7bmFtZX1cXG5gICtcbiAgICAgICAgYEVtYWlsOiAke2VtYWlsfVxcbmAgK1xuICAgICAgICBgRmFjdWx0eTogJHtmYWN1bHR5fVxcblxcbmAgK1xuICAgICAgICBgTWVzc2FnZTpcXG4ke21lc3NhZ2V9YCxcbiAgICAgIGh0bWw6IGBcbiAgICAgICAgPGRpdiBzdHlsZT1cImZvbnQtZmFtaWx5OiBBcmlhbCwgc2Fucy1zZXJpZjsgbWF4LXdpZHRoOiA2MDBweDsgbWFyZ2luOiAwIGF1dG87XCI+XG4gICAgICAgICAgPGgyIHN0eWxlPVwiY29sb3I6ICM0YTU1Njg7IGJvcmRlci1ib3R0b206IDFweCBzb2xpZCAjZTJlOGYwOyBwYWRkaW5nLWJvdHRvbTogMTBweDtcIj5OZXcgQ29udGFjdCBGb3JtIFN1Ym1pc3Npb248L2gyPlxuICAgICAgICAgIFxuICAgICAgICAgIDxkaXYgc3R5bGU9XCJtYXJnaW46IDIwcHggMDtcIj5cbiAgICAgICAgICAgIDxwPjxzdHJvbmc+TmFtZTo8L3N0cm9uZz4gJHtuYW1lfTwvcD5cbiAgICAgICAgICAgIDxwPjxzdHJvbmc+RW1haWw6PC9zdHJvbmc+IDxhIGhyZWY9XCJtYWlsdG86JHtlbWFpbH1cIj4ke2VtYWlsfTwvYT48L3A+XG4gICAgICAgICAgICA8cD48c3Ryb25nPkZhY3VsdHk6PC9zdHJvbmc+ICR7ZmFjdWx0eX08L3A+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgXG4gICAgICAgICAgPGRpdiBzdHlsZT1cImJhY2tncm91bmQtY29sb3I6ICNmN2ZhZmM7IHBhZGRpbmc6IDE1cHg7IGJvcmRlci1yYWRpdXM6IDVweDsgbWFyZ2luLXRvcDogMjBweDtcIj5cbiAgICAgICAgICAgIDxoMyBzdHlsZT1cImNvbG9yOiAjNGE1NTY4OyBtYXJnaW4tdG9wOiAwO1wiPk1lc3NhZ2U6PC9oMz5cbiAgICAgICAgICAgIDxwIHN0eWxlPVwid2hpdGUtc3BhY2U6IHByZS13cmFwO1wiPiR7bWVzc2FnZS5yZXBsYWNlKC9cXG4vZywgJzxicj4nKX08L3A+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgXG4gICAgICAgICAgPGRpdiBzdHlsZT1cIm1hcmdpbi10b3A6IDMwcHg7IGZvbnQtc2l6ZTogMTJweDsgY29sb3I6ICM3MTgwOTY7IGJvcmRlci10b3A6IDFweCBzb2xpZCAjZTJlOGYwOyBwYWRkaW5nLXRvcDogMTBweDtcIj5cbiAgICAgICAgICAgIDxwPlRoaXMgaXMgYW4gYXV0b21hdGVkIGVtYWlsIGZyb20geW91ciB3ZWJzaXRlIGNvbnRhY3QgZm9ybS48L3A+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgIDwvZGl2PlxuICAgICAgYCxcbiAgICB9KTtcbiAgICBcbiAgICBpZiAoZXJyb3IpIHtcbiAgICAgIGNvbnNvbGUuZXJyb3IoJ0Vycm9yIHNlbmRpbmcgZW1haWwgd2l0aCBSZXNlbmQ6JywgZXJyb3IpO1xuICAgICAgcmV0dXJuIE5leHRSZXNwb25zZS5qc29uKFxuICAgICAgICB7IGVycm9yOiAnRmFpbGVkIHRvIHNlbmQgZW1haWwnIH0sXG4gICAgICAgIHsgc3RhdHVzOiA1MDAgfVxuICAgICAgKTtcbiAgICB9XG4gICAgXG4gICAgcmV0dXJuIE5leHRSZXNwb25zZS5qc29uKFxuICAgICAgeyBtZXNzYWdlOiAnRW1haWwgc2VudCBzdWNjZXNzZnVsbHknLCBpZDogZGF0YT8uaWQgfSxcbiAgICAgIHsgc3RhdHVzOiAyMDAgfVxuICAgICk7XG4gIH0gY2F0Y2ggKGVycm9yKSB7XG4gICAgY29uc29sZS5lcnJvcignRXJyb3Igc2VuZGluZyBlbWFpbDonLCBlcnJvcik7XG4gICAgcmV0dXJuIE5leHRSZXNwb25zZS5qc29uKFxuICAgICAgeyBlcnJvcjogJ0ZhaWxlZCB0byBzZW5kIGVtYWlsJyB9LFxuICAgICAgeyBzdGF0dXM6IDUwMCB9XG4gICAgKTtcbiAgfVxufSAiXSwibmFtZXMiOlsiTmV4dFJlc3BvbnNlIiwiUmVzZW5kIiwiUE9TVCIsInJlcXVlc3QiLCJib2R5IiwianNvbiIsIm5hbWUiLCJlbWFpbCIsImZhY3VsdHkiLCJtZXNzYWdlIiwiZXJyb3IiLCJzdGF0dXMiLCJyZXNlbmQiLCJwcm9jZXNzIiwiZW52IiwiUkVTRU5EX0FQSV9LRVkiLCJkYXRhIiwiZW1haWxzIiwic2VuZCIsImZyb20iLCJ0byIsInN1YmplY3QiLCJyZXBseVRvIiwidGV4dCIsImh0bWwiLCJyZXBsYWNlIiwiY29uc29sZSIsImlkIl0sImlnbm9yZUxpc3QiOltdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///(rsc)/./app/api/contact/route.ts\n");
 
 /***/ }),
 
@@ -87,14 +87,14 @@ module.exports = require("next/dist/server/app-render/work-unit-async-storage.ex
 
 /***/ }),
 
-/***/ "child_process":
-/*!********************************!*\
-  !*** external "child_process" ***!
-  \********************************/
+/***/ "async_hooks":
+/*!******************************!*\
+  !*** external "async_hooks" ***!
+  \******************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = require("child_process");
+module.exports = require("async_hooks");
 
 /***/ }),
 
@@ -106,72 +106,6 @@ module.exports = require("child_process");
 
 "use strict";
 module.exports = require("crypto");
-
-/***/ }),
-
-/***/ "dns":
-/*!**********************!*\
-  !*** external "dns" ***!
-  \**********************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("dns");
-
-/***/ }),
-
-/***/ "events":
-/*!*************************!*\
-  !*** external "events" ***!
-  \*************************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("events");
-
-/***/ }),
-
-/***/ "fs":
-/*!*********************!*\
-  !*** external "fs" ***!
-  \*********************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("fs");
-
-/***/ }),
-
-/***/ "http":
-/*!***********************!*\
-  !*** external "http" ***!
-  \***********************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("http");
-
-/***/ }),
-
-/***/ "https":
-/*!************************!*\
-  !*** external "https" ***!
-  \************************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("https");
-
-/***/ }),
-
-/***/ "net":
-/*!**********************!*\
-  !*** external "net" ***!
-  \**********************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("net");
 
 /***/ }),
 
@@ -197,25 +131,36 @@ module.exports = require("next/dist/compiled/next-server/app-route.runtime.dev.j
 
 /***/ }),
 
-/***/ "os":
-/*!*********************!*\
-  !*** external "os" ***!
-  \*********************/
+/***/ "node:stream":
+/*!******************************!*\
+  !*** external "node:stream" ***!
+  \******************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = require("os");
+module.exports = require("node:stream");
 
 /***/ }),
 
-/***/ "path":
-/*!***********************!*\
-  !*** external "path" ***!
-  \***********************/
+/***/ "prettier/plugins/html":
+/*!****************************************!*\
+  !*** external "prettier/plugins/html" ***!
+  \****************************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = require("path");
+module.exports = import("prettier/plugins/html");;
+
+/***/ }),
+
+/***/ "prettier/standalone":
+/*!**************************************!*\
+  !*** external "prettier/standalone" ***!
+  \**************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = import("prettier/standalone");;
 
 /***/ }),
 
@@ -230,28 +175,6 @@ module.exports = require("stream");
 
 /***/ }),
 
-/***/ "tls":
-/*!**********************!*\
-  !*** external "tls" ***!
-  \**********************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("tls");
-
-/***/ }),
-
-/***/ "url":
-/*!**********************!*\
-  !*** external "url" ***!
-  \**********************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("url");
-
-/***/ }),
-
 /***/ "util":
 /*!***********************!*\
   !*** external "util" ***!
@@ -260,17 +183,6 @@ module.exports = require("url");
 
 "use strict";
 module.exports = require("util");
-
-/***/ }),
-
-/***/ "zlib":
-/*!***********************!*\
-  !*** external "zlib" ***!
-  \***********************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("zlib");
 
 /***/ })
 
@@ -281,7 +193,7 @@ module.exports = require("zlib");
 var __webpack_require__ = require("../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, ["vendor-chunks/next","vendor-chunks/nodemailer"], () => (__webpack_exec__("(rsc)/./node_modules/next/dist/build/webpack/loaders/next-app-loader/index.js?name=app%2Fapi%2Fcontact%2Froute&page=%2Fapi%2Fcontact%2Froute&appPaths=&pagePath=private-next-app-dir%2Fapi%2Fcontact%2Froute.ts&appDir=%2FUsers%2Ffuyukimatsubara%2Fdevelopment%2Farrowheads-corporate%2Fapp&pageExtensions=tsx&pageExtensions=ts&pageExtensions=jsx&pageExtensions=js&rootDir=%2FUsers%2Ffuyukimatsubara%2Fdevelopment%2Farrowheads-corporate&isDev=true&tsconfigPath=tsconfig.json&basePath=&assetPrefix=&nextConfigOutput=&preferredRegion=&middlewareConfig=e30%3D!")));
+var __webpack_exports__ = __webpack_require__.X(0, ["vendor-chunks/next","vendor-chunks/resend"], () => (__webpack_exec__("(rsc)/./node_modules/next/dist/build/webpack/loaders/next-app-loader/index.js?name=app%2Fapi%2Fcontact%2Froute&page=%2Fapi%2Fcontact%2Froute&appPaths=&pagePath=private-next-app-dir%2Fapi%2Fcontact%2Froute.ts&appDir=%2FUsers%2Ffuyukimatsubara%2Fdevelopment%2Farrowheads-corporate%2Fapp&pageExtensions=tsx&pageExtensions=ts&pageExtensions=jsx&pageExtensions=js&rootDir=%2FUsers%2Ffuyukimatsubara%2Fdevelopment%2Farrowheads-corporate&isDev=true&tsconfigPath=tsconfig.json&basePath=&assetPrefix=&nextConfigOutput=&preferredRegion=&middlewareConfig=e30%3D!")));
 module.exports = __webpack_exports__;
 
 })();
